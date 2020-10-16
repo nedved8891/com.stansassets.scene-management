@@ -17,7 +17,7 @@ namespace StansAssets.SceneManagement
 
         Action<StackOperationEvent<T>, Action> m_PreprocessAction;
         Action<StackOperationEvent<T>, Action> m_PostprocessAction;
-
+        Action m_VisualizerAction;
         public ApplicationStateStack()
         {
             m_StatesStack = new List<T>();
@@ -35,7 +35,7 @@ namespace StansAssets.SceneManagement
 
         public void RemoveDelegate(IApplicationStateDelegate<T> d)
         {
-            for (int i = m_Subscriptions.Count - 1; i >= 0; i--)
+            for (var i = m_Subscriptions.Count - 1; i >= 0; i--)
             {
                 if (m_Subscriptions[i] != d)
                     continue;
@@ -108,6 +108,7 @@ namespace StansAssets.SceneManagement
                             StackChangeEvent<T>.Release(addEvent);
 
                             onComplete.Invoke();
+                            m_VisualizerAction.Invoke();
                         });
                     };
 
@@ -167,6 +168,7 @@ namespace StansAssets.SceneManagement
                             StackChangeEvent<T>.Release(pauseEvent);
 
                             onComplete.Invoke();
+                            m_VisualizerAction.Invoke();
                         });
                     };
                     GetStateFromEnum(applicationState).ChangeState(addEvent, changeStateRequest);
@@ -227,6 +229,7 @@ namespace StansAssets.SceneManagement
                             StackChangeEvent<T>.Release(resumedEvent);
 
                             onComplete.Invoke();
+                            m_VisualizerAction.Invoke();
                         });
                     };
 
@@ -250,6 +253,11 @@ namespace StansAssets.SceneManagement
         public void SetPostprocessAction(Action<StackOperationEvent<T>, Action> postprocessAction)
         {
             m_PostprocessAction = postprocessAction;
+        }
+        
+        internal void SetVisualizerAction(Action visualizerAction)
+        {
+            m_VisualizerAction = visualizerAction;
         }
 
         void Preprocess(StackOperationEvent<T> stackOperationEvent, Action onComplete)

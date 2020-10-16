@@ -1,4 +1,5 @@
 ﻿#if UNITY_2019_4_OR_NEWER
+using System;
 using StansAssets.Plugins.Editor;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -9,6 +10,8 @@ namespace StansAssets.SceneManagement
 {
     public class SettingsTab : BaseTab
     {
+        readonly VisualElement m_Enums;
+
         public SettingsTab()
             : base($"{SceneManagementPackage.WindowTabsPath}/SettingsTab")
         {
@@ -21,6 +24,22 @@ namespace StansAssets.SceneManagement
                 SceneManagementSettings.Instance.LandingScene = (SceneAsset)e.newValue;
                 SceneManagementSettings.Save();
             });
+
+            m_Enums = this.Q<VisualElement>("enums");
+            foreach (var stack in StateStackVisualizer.StackMap)
+            {
+                stack.OnStackUpdated += () => { StackUpdated(stack); };
+                StackUpdated(stack);
+            }
+        }
+
+        void StackUpdated(StateStackVisualizerItem stack)
+        {
+            if (stack.IsActive())
+            {
+                var stackUI = stack.UpdateStackUISetup();
+                m_Enums.Add(stackUI);
+            }
         }
     }
 }
