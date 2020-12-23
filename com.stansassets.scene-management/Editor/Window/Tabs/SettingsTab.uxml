@@ -4,6 +4,10 @@
     </sa:SettingsBlock>
 
     <sa:SettingsBlock label="Registered Stacks View">
-        <ui:Label label="Coming soon.." name="stack-view" />
+        <ui:Button name="Added" class="ButtonList" text="Added"/>
+        <ui:Button name="Paused" class="ButtonList" text="Paused"/>
+        <ui:Button name="Resumed" class="ButtonList" text="Resumed"/>
+        <ui:Button name="Removed" class="ButtonList" text="Removed"/>
+        <ui:ListView name="ListView"/>
     </sa:SettingsBlock>
 </ui:UXML>
