@@ -4,6 +4,7 @@
     </sa:SettingsBlock>
 
     <sa:SettingsBlock label="Registered Stacks View">
+        <ui:Button name="Register" class="ButtonList" text="Register"/>
         <ui:Button name="Added" class="ButtonList" text="Added"/>
         <ui:Button name="Paused" class="ButtonList" text="Paused"/>
         <ui:Button name="Resumed" class="ButtonList" text="Resumed"/>

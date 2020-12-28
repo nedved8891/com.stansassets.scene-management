@@ -3,6 +3,7 @@ using StansAssets.Foundation.Patterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace StansAssets.SceneManagement
@@ -17,7 +18,7 @@ namespace StansAssets.SceneManagement
 
         Action<StackOperationEvent<T>, Action> m_PreprocessAction;
         Action<StackOperationEvent<T>, Action> m_PostprocessAction;
-
+        
         public ApplicationStateStack()
         {
             m_StatesStack = new List<T>();
@@ -46,6 +47,7 @@ namespace StansAssets.SceneManagement
 
         public void RegisterState(T key, IApplicationState<T> value)
         {
+            Debug.Log(key + "   " + value);
             m_EnumToState.Add(key, value);
             m_StateToEnum.Add(value, key);
         }
