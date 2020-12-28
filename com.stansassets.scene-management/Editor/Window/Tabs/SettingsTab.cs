@@ -53,12 +53,6 @@ namespace StansAssets.SceneManagement
             var list = Root.Q<ListView>("ListView");
             list.Clear();
 
-            /*foreach (var p in someDictionary.Reverse())
-            {
-                var listLabel = new Label(p.Key) {name = GetStyle(p.Value)};
-                list.Add(listLabel);
-            }*/
-
             foreach (var st in StateVisualization.GetState())
             {
                 var listLabel = new Label(st.Key) {name = GetStyle(st.Value)};
